@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+	private bool flag_interaction;
+
 	// Use this for initialization
 	private Rigidbody2D Rigid;
 	public float speed;
@@ -13,11 +15,19 @@ public class PlayerController : MonoBehaviour {
 		
 		speed = 3;
 
+		flag_interaction = false;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		Move();
+
+		
+		if( Input.GetKeyDown(KeyCode.Space) && flag_interaction){
+			Debug.Log("Interagindo com o objeto.");
+			
+		}
 	}
 
 	void Move() {
@@ -30,5 +40,9 @@ public class PlayerController : MonoBehaviour {
 
 		Rigid.velocity = movement.normalized * speed;		
 		
+	}
+
+	public void set_interaction(bool b){
+		flag_interaction = b;
 	}
 }

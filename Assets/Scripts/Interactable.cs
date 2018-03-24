@@ -20,12 +20,16 @@ public class Interactable : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D other) {
         if (other.gameObject.tag == "Player") {
             transform.localScale = new Vector3(transform.localScale.x * kScale, transform.localScale.y * kScale, transform.localScale.z);
+
+			other.gameObject.GetComponent<PlayerController>().set_interaction(true);
         }
     }
 
 	void OnTriggerExit2D (Collider2D other) {
 		if (other.gameObject.tag == "Player") {
             transform.localScale = normalScale;
+
+			other.gameObject.GetComponent<PlayerController>().set_interaction(false);
         }
 	}
 }
