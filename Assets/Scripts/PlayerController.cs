@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private GameObject obj_interact;
 
 	public GameManager gameManager;
+	public bool isActive;
 
 	// Use this for initialization
 	private Rigidbody2D Rigid;
@@ -16,19 +17,20 @@ public class PlayerController : MonoBehaviour {
 		
 		speed = 3;
 
+		isActive = true; //false
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Move();
-
 		
-		if( Input.GetKeyDown(KeyCode.Space) && obj_interact != null){
-			Debug.Log("Interagindo com o objeto " + obj_interact.name + ".");	
-
-			gameManager.Interact(obj_interact);
-
+		if (isActive){
+			Move();
 			
+			if( Input.GetKeyDown(KeyCode.Space) && obj_interact != null){
+				Debug.Log("Interagindo com o objeto " + obj_interact.name + ".");	
+
+				gameManager.Interact(obj_interact);
+			}
 		}
 	}
 

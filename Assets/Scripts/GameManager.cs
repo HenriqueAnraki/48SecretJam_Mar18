@@ -5,14 +5,17 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
 	private int game_state;//estado atual
-	public int[] objs;//vetor de ordem de interação de objetos
+	public GameObject[] objs;//vetor de ordem de interação de objetos
 
 	public GameObject Player;//referencia do player
+	public PlayerController playerController;
+
+	public InputControl inputControl;
 
 
 	// Use this for initialization
 	void Start () {
-		
+		game_state = 0;
 	}
 	
 	// Update is called once per frame
@@ -22,7 +25,27 @@ public class GameManager : MonoBehaviour {
 
 	public void Interact(GameObject go){
 		if (go.tag == "Door"){
+			
 			Player.transform.position = go.GetComponent<Interactable>().target_postion;
+
+			
+
+		} else if(game_state >= objs.Length){
+			
+			Debug.Log("Fim de jogo =D");
+		
+		} else if(objs[game_state] == go) {
+		
+			Debug.Log("Objeto certo");
+			game_state++;
+
+			playerController.isActive = false;
+			inputControl.ShowDialog();
+		
+		} else {
+		
+			Debug.Log("Objeto errado");
+		
 		}
 	}
 }

@@ -9,26 +9,40 @@ public class InputControl : MonoBehaviour {
     private string dialog;
     public int dialogNumber;
 
+    public bool isActive;
+
+    public PlayerController playerController;
+
     private void Start()
     {
         dialog = "dialog";
-        dialogNumber = 0;
+        dialogNumber = 1;
+        isActive = false; //true
     }
 
     // Update is called once per frame
     void Update () {
         //Verifica se o player apertou Enter e avança uma fala caso esteja disponível
-        if (Input.GetKeyUp(KeyCode.Return))
+        if (isActive && Input.GetKeyUp(KeyCode.Space))
         {
             if (!dialogManager.gameObject.activeSelf || !dialogBox.gameObject.activeSelf)
             {
-                dialogNumber++;
-                if (dialogNumber > 6) dialogNumber = 1;
+                //dialogNumber++;
+                //if (dialogNumber > 6) dialogNumber = 1;
 
                 dialogManager.gameObject.SetActive(true);
                 dialogManager.transform.GetComponent<TextImporter>().changeFile(dialog+dialogNumber,"Tempos");
             }
-            dialogManager.transform.GetComponent<TextImporter>().textInput();
+            if(!dialogManager.transform.GetComponent<TextImporter>().textInput()){
+                isActive = false;
+                playerController.isActive = true;
+            }
         }
+    }
+
+    public void ShowDialog(){
+
+        isActive = true;
+
     }
 }

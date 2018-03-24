@@ -26,7 +26,7 @@ public class TextImporter : MonoBehaviour
 
     //Mostra o texto que está na linha do arquivo de número lineNumber
     //Faz também verificações de comandos para o diálogo no arquivo de texto
-    void showText()
+    bool showText()
     {
         //Fazer mecânica de trocar linhas?
         //else if (lines[lineNumber].Contains("LINE"))
@@ -48,6 +48,7 @@ public class TextImporter : MonoBehaviour
             if (lines[lineNumber].Contains("END"))
             {
                 dialogBox.gameObject.SetActive(false);
+                return false;
             }
             //Mostrar o texto
             else
@@ -79,6 +80,7 @@ public class TextImporter : MonoBehaviour
                 lineNumber += 2;
             }
         }
+        return true;
     }
 
     //*******************************MÉTODOS PUBLICOS**********************************************
@@ -92,13 +94,13 @@ public class TextImporter : MonoBehaviour
     }
 
     //É chamado ao receber um input que envolve diálogo
-    public void textInput()
+    public bool textInput()
     {
         if (!dialogBox.isActiveAndEnabled)
         {
             dialogBox.gameObject.SetActive(true);
             lineNumber = 0;
         }
-        showText();
+        return showText();
     }
 }

@@ -1,0 +1,4 @@
+;1 1 1;0
+Não devo interagir com isso agora.
+END
+END
