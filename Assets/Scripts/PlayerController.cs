@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+	[SerializeField] private GameObject obj_interact;
 
-	private bool flag_interaction;
+	public GameManager gameManager;
 
 	// Use this for initialization
 	private Rigidbody2D Rigid;
@@ -15,8 +16,6 @@ public class PlayerController : MonoBehaviour {
 		
 		speed = 3;
 
-		flag_interaction = false;
-
 	}
 	
 	// Update is called once per frame
@@ -24,8 +23,11 @@ public class PlayerController : MonoBehaviour {
 		Move();
 
 		
-		if( Input.GetKeyDown(KeyCode.Space) && flag_interaction){
-			Debug.Log("Interagindo com o objeto.");
+		if( Input.GetKeyDown(KeyCode.Space) && obj_interact != null){
+			Debug.Log("Interagindo com o objeto " + obj_interact.name + ".");	
+
+			gameManager.Interact(obj_interact);
+
 			
 		}
 	}
@@ -42,7 +44,8 @@ public class PlayerController : MonoBehaviour {
 		
 	}
 
-	public void set_interaction(bool b){
-		flag_interaction = b;
+	public void set_interaction(GameObject b){
+		//flag_interaction = b;
+		obj_interact = b;
 	}
 }
