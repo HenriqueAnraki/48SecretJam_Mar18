@@ -6,11 +6,13 @@ public class InputControl : MonoBehaviour {
 
     public GameObject dialogManager;
     public GameObject dialogBox;
-    public string dialog;
+    private string dialog;
+    public int dialogNumber;
 
     private void Start()
     {
-        dialog = "dialog1";
+        dialog = "dialog";
+        dialogNumber = 0;
     }
 
     // Update is called once per frame
@@ -20,8 +22,11 @@ public class InputControl : MonoBehaviour {
         {
             if (!dialogManager.gameObject.activeSelf || !dialogBox.gameObject.activeSelf)
             {
+                dialogNumber++;
+                if (dialogNumber > 14) dialogNumber = 1;
+
                 dialogManager.gameObject.SetActive(true);
-                dialogManager.transform.GetComponent<TextImporter>().changeFile(dialog,"Tempos");
+                dialogManager.transform.GetComponent<TextImporter>().changeFile(dialog+dialogNumber,"Tempos");
             }
             dialogManager.transform.GetComponent<TextImporter>().textInput();
         }
