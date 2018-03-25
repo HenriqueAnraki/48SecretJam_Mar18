@@ -7,6 +7,10 @@ TagManager:
   - Door
   - Key
   - Trigger
+  - Box
+  - Book
+  - Bookcase
+  - Box2
   layers:
   - Default
   - TransparentFX
@@ -46,6 +50,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Book
+    uniqueID: 4161844417
     locked: 0
   - name: Player
     uniqueID: 3327099977

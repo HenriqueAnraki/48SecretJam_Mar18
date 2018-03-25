@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour {
 	private Vector3 normalScale;
 
 	public GameObject target_object; //para portas
-	public Vector3 target_postion;
+	public Vector3 target_position;
 
 	public GameManager gameManager;
 
@@ -19,7 +19,7 @@ public class Interactable : MonoBehaviour {
 		normalScale = transform.localScale;
 
 		if(target_object != null){
-			target_postion = target_object.transform.position;
+			target_position = target_object.transform.position;
 		}
 	}
 	

@@ -12,6 +12,12 @@ public class InputControl : MonoBehaviour {
     public bool isActive;
     public bool beginWithoutInput;
     public bool wrongMessage;
+    public int forceTravel;
+    public bool timerOn;
+    public bool isLastText;
+
+    private float nextTravel;
+    private float travelFrame = 2.0f; 
 
     public PlayerController playerController;
 
@@ -22,6 +28,9 @@ public class InputControl : MonoBehaviour {
         isActive = true;
         beginWithoutInput = true;
         wrongMessage = false;
+        forceTravel = 0;
+        timerOn = false;
+        isLastText = false;
     }
 
     // Update is called once per frame
@@ -41,12 +50,46 @@ public class InputControl : MonoBehaviour {
                     dialogManager.transform.GetComponent<TextImporter>().changeFile(dialog+"Wrong","Tempos");
                 }
             }
-            if(!dialogManager.transform.GetComponent<TextImporter>().textInput()){
-                isActive = false;
-                playerController.isActive = true;
-                wrongMessage = false;
+            if(!dialogManager.transform.GetComponent<TextImporter>().textInput() ){
+                setValues(forceTravel);
             }
         }
+
+        if(timerOn){
+            if(  nextTravel < Time.time ){
+                timerOn = false;
+                setValues(0);
+            }
+        }
+    }
+
+    private void setValues(int a){
+        int b = a;
+        isActive = false;
+        playerController.isActive = true;
+        wrongMessage = false;
+        
+        if(isLastText){
+            playerController.End_game();
+        }
+        
+        if(forceTravel > 0){
+            forceTravel = 0;
+
+             
+
+            beginWithoutInput = true;
+            isActive = true;
+            playerController.isActive = false;
+
+            if(a == 3) a = 0;
+            playerController.set_sprite( a );
+            playerController.Force_travel(b);
+
+            nextTravel = Time.time + travelFrame;
+        }
+
+        
     }
 
     public void ShowDialog(){
