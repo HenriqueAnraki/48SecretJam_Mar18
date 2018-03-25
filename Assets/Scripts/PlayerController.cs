@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
 		
 		speed = 3;
 
-		isActive = true; //false
+		isActive = false;
 	}
 	
 	// Update is called once per frame
@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour {
 
 				gameManager.Interact(obj_interact);
 			}
+		} else {
+			Rigid.velocity = new Vector2(0.0f, 0.0f);
 		}
 	}
 
